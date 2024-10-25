@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Médias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4e73df;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .calculate-btn {
+            padding: 10px 20px;
+            background-color: #4e73df;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .calculate-btn:hover {
+            background-color: #3a5cab;
+        }
+
+        .result {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+    <script>
+// Função para calcular média do trimestre
+function calcularMediaTrimestre() {
+    const notaTeste = parseFloat(document.getElementById('notaTeste').value);
+    const notaProva = parseFloat(document.getElementById('notaProva').value);
+    const atividadeAvaliativa = parseFloat(document.getElementById('atividadeAvaliativa').value);
+    const trimestre = parseInt(document.getElementById('trimestre').value);
+
+    if (isNaN(notaTeste) || isNaN(notaProva) || isNaN(atividadeAvaliativa) || isNaN(trimestre)) {
+        alert("Por favor, insira todas as notas e o trimestre.");
+        return;
+    }
+
+    // Cálculo básico da média do trimestre
+    let mediaTrimestre = (notaTeste + (2 * notaProva) + atividadeAvaliativa) / 4;
+
+    // Multiplica por 2 se for segundo ou terceiro trimestre
+    if (trimestre === 2 || trimestre === 3) {
+        mediaTrimestre *= 2;
+    }
+
+    document.getElementById('resultadoTrimestre').innerText = `Média do ${trimestre}º trimestre: ${mediaTrimestre.toFixed(2)} ${mediaTrimestre >= (trimestre === 1 ? 6 : 12) ? ' - Aprovado' : ' - Reprovado'}`;
+}
+
+
+        // Função para calcular média do ano
+        function calcularMediaAno() {
+            const nota1 = parseFloat(document.getElementById('nota1').value);
+            const nota2 = parseFloat(document.getElementById('nota2').value);
+            const nota3 = parseFloat(document.getElementById('nota3').value);
+
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+                alert("Por favor, insira todas as notas.");
+                return;
+            }
+
+            const mediaAno = (nota1 + (nota2) + (nota3)) / 5;
+            document.getElementById('resultadoAno').innerText = `Média do ano: ${mediaAno.toFixed(2)} ${mediaAno >= 6 ? ' - Aprovado' : ' - Reprovado'}`;
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Calculadora de Média do Trimestre</h2>
+    <label for="notaTeste">Nota do Teste (1 a 10):</label>
+    <input type="number" id="notaTeste" min="1" max="10" step="0.1">
+    
+    <label for="notaProva">Nota da Prova (1 a 10):</label>
+    <input type="number" id="notaProva" min="1" max="10" step="0.1">
+    
+    <label for="atividadeAvaliativa">Nota da Atividade Avaliativa (1 a 10):</label>
+    <input type="number" id="atividadeAvaliativa" min="1" max="10" step="0.1">
+    
+    <label for="trimestre">Qual trimestre você está?</label>
+    <input type="number" id="trimestre" min="1" max="3">
+    
+    <button class="calculate-btn" onclick="calcularMediaTrimestre()">Calcular Média do Trimestre</button>
+    <div id="resultadoTrimestre" class="result"></div>
+</div>
+
+<div class="container">
+    <h2>Calculadora de Média do Ano</h2>
+    <label for="nota1">Nota do Primeiro Trimestre (1 a 10):</label>
+    <input type="number" id="nota1" min="1" max="10" step="0.1">
+    
+    <label for="nota2">Nota do Segundo Trimestre (1 a 10):</label>
+    <input type="number" id="nota2" min="1" max="10" step="0.1">
+    
+    <label for="nota3">Nota do Terceiro Trimestre (1 a 10):</label>
+    <input type="number" id="nota3" min="1" max="10" step="0.1">
+    
+    <button class="calculate-btn" onclick="calcularMediaAno()">Calcular Média do Ano</button>
+    <div id="resultadoAno" class="result"></div>
+</div>
+
+</body>
+</html>
